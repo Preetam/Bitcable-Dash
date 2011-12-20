@@ -13,8 +13,14 @@ var express = require('express')
 
 var privateKey = fs.readFileSync('privatekey.pem').toString();
 var certificate = fs.readFileSync('certificate.pem').toString();
+var caCert = fs.readFileSync('ca.pem').toString();
+var app = module.exports = express.createServer({key: privateKey, cert: certificate, ca: caCert});
 
-var app = module.exports = express.createServer({key: privateKey, cert: certificate});
+var nonssl = express.createServer();
+nonssl.get('*', function(req, res) {
+	res.redirect('https://dash.bitcable.com/');
+});
+nonssl.listen('8001');
 
 // Configuration
 
@@ -40,5 +46,5 @@ app.configure('production', function(){
 
 app.get('/', routes.index);
 
-app.listen(443, '199.58.161.156');
+app.listen(443, '199.58.161.141');
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
