@@ -50,5 +50,12 @@ app.configure('production', function(){
 app.get('/', routes.index);
 app.post('/auth', routes.auth);
 
+app.get('/logout', function(req, res) {
+	req.session.destroy();
+	res.redirect('/');
+});
+
+app.get('/manage/:kvmid', routes.manage);
+
 app.listen(443, '199.58.161.141');
 //console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);

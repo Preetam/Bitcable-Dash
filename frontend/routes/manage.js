@@ -1,7 +1,7 @@
-exports.test = function(req, res){
+exports.manage = function(req, res){
 	console.log(req.session.user);
 	if(req.session && req.session.user)
-		res.render('index');
+		res.render('manage');
 	else
 		res.render('login');
 };

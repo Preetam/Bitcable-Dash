@@ -1,4 +1,5 @@
 exports.auth = require('./auth').auth;
+exports.manage = require('./manage').manage;
 
 exports.index = function(req, res){
 	console.log(req.session.user);
