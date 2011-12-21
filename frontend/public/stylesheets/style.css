@@ -1,7 +1,35 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #111;
 }
-a {
-  color: #00b7ff;
+font-family: Arial,
+sans-serif,
+#container {
+  margin: 5em auto;
+  width: 50em;
+  box-shadow: 0 0 1em rgba(0,0,0,0.50);
+  min-height: 10em;
+  background-color: #000;
+}
+#login {
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  margin-top: -100px;
+}
+#login #loginform {
+  width: 15em;
+  padding: 1em 0;
+  margin: 0 auto;
+  text-align: center;
+  background-color: #222;
+  border-radius: 1em;
+  box-shadow: 0 0 1em #000;
+}
+#loginform input {
+  border: 0;
+  width: 10em;
+  background-color: #111;
+  color: #fff;
 }
