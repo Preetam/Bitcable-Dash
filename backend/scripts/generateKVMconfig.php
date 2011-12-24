@@ -31,7 +31,7 @@ $config = "<domain type='kvm'>
   <on_reboot>restart</on_reboot>
   <on_crash>destroy</on_crash>
   <devices>
-    <emulator>/usr/libexec/qemu-kvm</emulator>
+    <emulator>/usr/bin/kvm</emulator>
     <disk type='file' device='disk'>
       <driver name='qemu' type='raw'/>
       <source file='/dev/vps/$KVM_VOLUME'/>
