@@ -3,12 +3,13 @@
 
 #container
 	h1 Manage
-	h2.hostname server.host.name
+	h2.hostname= hostname
 
 	#bandwidthBar
 		#bandwidthUsed
-		#bandwidthUsedText 141 / 300 GB
-
+		#bandwidthUsedText #{usedbandwidth.toFixed(0)} / #{bandwidth} GB
+	script(type='text/javascript')
+		document.getElementById('bandwidthUsed').style.width = '#{(usedbandwidth/bandwidth*100).toFixed(2)}%';
 	#controls
 		a(href='#') Start
 		a(href='#') Stop
