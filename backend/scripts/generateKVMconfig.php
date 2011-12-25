@@ -10,14 +10,52 @@ $KVM_NIC = $argv[7];
 $KVM_VNC_PORT = $argv[8];
 $KVM_VNC_PASS = $argv[9];
 
-$config = "<domain type='kvm'>
+$config = "
+<domain type='kvm'>
+	<name>$KVM_NAME</name>
+	<uuid>$KVM_UUID</uuid>
+	<memory>$KVM_RAM</memory>
+	<currentMemory>$KVM_RAM</currentMemory>
+	<vcpu>$KVM_CPU</vcpu>
+	<os>
+		<type arch='x86_64' machine='pc'>hvm</type>
+		<boot dev='hd'/>
+	</os>
+	<features>
+		<acpi/>
+		<apic/>
+		<pae/>
+	</features>
+	<clock offset='utc'/>
+	<on_poweroff>destroy</on_poweroff>
+	<on_reboot>destroy</on_reboot>
+	<on_crash>destroy</on_crash>
+	<devices>
+		<emulator>/usr/bin/kvm</emulator>
+		<disk type='file' device='disk'>
+			<source file='/dev/vps/$KVM_VOLUME'/>
+			<target dev='vda' bus='virtio'/>
+		</disk>
+		<interface type='bridge'>
+			<source bridge='br0'/>
+			<mac address='$KVM_MAC'/>
+			<target dev='$KVM_NIC'/>
+		</interface>
+		<input type='mouse' bus='ps2'/>
+		<graphics type='vnc' port='-1' autoport='yes' keymap='en-us'/>
+	</devices>
+</domain>
+";
+
+
+$config1 = "<domain type='kvm'>
   <name>$KVM_NAME</name>
   <uuid>$KVM_UUID</uuid>
   <memory>$KVM_RAM</memory>
   <currentMemory>$KVM_RAM</currentMemory>
   <vcpu>$KVM_CPU</vcpu>
   <os>
-    <type arch='x86_64' machine='rhel5.4.0'>hvm</type>
+    <type arch='x86_64' machine='pc'>hvm</type>
     <boot dev='hd'/>
   </os>
   <features>
