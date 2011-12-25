@@ -42,7 +42,7 @@ $config = "
 			<target dev='$KVM_NIC'/>
 		</interface>
 		<input type='mouse' bus='ps2'/>
-		<graphics type='vnc' port='-1' autoport='yes' keymap='en-us'/>
+		<graphics type='vnc' port='$KVM_VNC_PORT' autoport='no' listen='0.0.0.0' keymap='en-us'/>
 	</devices>
 </domain>
 ";
