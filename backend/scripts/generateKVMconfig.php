@@ -5,10 +5,12 @@ $KVM_UUID = $argv[2];
 $KVM_RAM = $argv[3];
 $KVM_CPU = $argv[4];
 $KVM_VOLUME = $argv[5];
-$KVM_MAC = $argv[6];
-$KVM_NIC = $argv[7];
-$KVM_VNC_PORT = $argv[8];
-$KVM_VNC_PASS = $argv[9];
+$KVM_MAC1 = $argv[6];
+$KVM_NIC1 = $argv[7];
+$KVM_MAC2 = $argv[8];
+$KVM_NIC2 = $argv[9];
+$KVM_VNC_PORT = $argv[10];
+$KVM_VNC_PASS = $argv[11];
 
 $config = "
 <domain type='kvm'>
@@ -28,8 +30,8 @@ $config = "
 	</features>
 	<clock offset='utc'/>
 	<on_poweroff>destroy</on_poweroff>
-	<on_reboot>destroy</on_reboot>
-	<on_crash>destroy</on_crash>
+	<on_reboot>restart</on_reboot>
+	<on_crash>restart</on_crash>
 	<devices>
 		<emulator>/usr/bin/kvm</emulator>
 		<disk type='file' device='disk'>
@@ -38,16 +40,27 @@ $config = "
 		</disk>
 		<interface type='bridge'>
 			<source bridge='br0'/>
-			<mac address='$KVM_MAC'/>
-			<target dev='$KVM_NIC'/>
+			<mac address='$KVM_MAC1'/>
+			<target dev='$KVM_NIC1'/>
+		</interface>
+		<interface type='bridge'>
+			<source bridge='br1'/>
+			<mac address='$KVM_MAC2'/>
+			<target dev='$KVM_NIC2'/>
 		</interface>
 		<input type='mouse' bus='ps2'/>
 		<graphics type='vnc' port='$KVM_VNC_PORT' autoport='no' listen='0.0.0.0' keymap='en-us'/>
+		<serial type='pty'>
+			<target port='0'/>
+		</serial>
+		<console type='pty'>
+			<target type='serial' port='0'/>
+		</console>
 	</devices>
 </domain>
 ";
 
-
+/*
 $config1 = "<domain type='kvm'>
   <name>$KVM_NAME</name>
   <uuid>$KVM_UUID</uuid>
@@ -96,7 +109,7 @@ $config1 = "<domain type='kvm'>
   </devices>
 </domain>
 ";
-
+*/
 echo $config;
 
 ?>

@@ -1,13 +1,14 @@
 <?
 $UUID = trim(`uuid`);
-$mac = `printf 'DE:AD:BE:EF:%02X:%02X' $((RANDOM%256)) $((RANDOM%256))`;
+$mac1 = `printf 'DE:AD:BE:EF:%02X:%02X' $((RANDOM%256)) $((RANDOM%256))`;
+$mac2 = `printf 'DE:AD:BE:EF:%02X:%02X' $((RANDOM%256)) $((RANDOM%256))`;
 //echo $mac;
 $mesg = '';
 $mesg .= `virsh destroy kvm1`;
 $mesg .= `virsh undefine kvm1`;
 $mesg .= `lvremove -f vps/kvm1`;
 $mesg .= `lvcreate -L 12500M vps -n kvm1`;
-`php -f generateKVMconfig.php kvm1 $UUID 256000 1 kvm1 $mac kvm1 9001 kvm1 > /kvmxml/kvm1.xml`;
+`php -f generateKVMconfig.php kvm1 $UUID 256000 1 kvm1 $mac1 kvm1.public $mac2 kvm1.private 9001 kvm1 > /kvmxml/kvm1.xml`;
 $mesg .= `virsh define /kvmxml/kvm1.xml`;
 $mesg .= `qemu-img convert /kvmimg/ubuntu-11.10-x86_64.img /dev/vps/kvm1`;
 //$mesg .= `echo -e "d\nn\np\n1\n\n\n+12000M\np\nn\np\n2\n\n\nt\n2\n82\np\nw\n" | fdisk /dev/vps/kvm1`;
@@ -51,7 +52,18 @@ iface eth0 inet static
         gateway 199.58.161.129
 ");
 
-$newpassword = trim(`openssl passwd -1 "coldmagma"`);
+file_put_contents('/kvmmnt/kvm1/etc/init/ttyS0.conf', "# ttyS0 - getty
+#
+# This service maintains a getty on ttyS0 from the point the system is
+# started until it is shut down again.
+
+start on stopped rc RUNLEVEL=[2345]
+stop on runlevel [!2345]
+
+respawn
+exec /sbin/getty -L 115200 ttyS0 xterm");
+
+$newpassword = trim(`openssl passwd -1 "niggaSKILLS"`);
 $shadow = file('/kvmmnt/kvm1/etc/shadow');
 $shadow[0] = "root:$newpassword:15199:0:99999:7:::\n";
 file_put_contents('/kvmmnt/kvm1/etc/shadow', implode($shadow));
