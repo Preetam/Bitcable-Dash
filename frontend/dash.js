@@ -9,6 +9,30 @@ var express = require('express')
   , fs = require('fs')
   , hashlib = require('hashlib')
   , db = require('./db.js').db
+  , httpProxy = require('http-proxy')
+  , https = require('https');
+
+var proxy = new httpProxy.RoutingProxy();
+
+var options = {
+  https: {
+    key: fs.readFileSync('privatekey.pem', 'utf8'),
+    cert: fs.readFileSync('certificate.pem', 'utf8'),
+    ca: fs.readFileSync('ca.pem', 'utf8')
+  }
+};
+
+
+httpProxy.createServer(options, function (req, res, proxy) {
+	var kvmid = req.url.match(/kvm[0-9]+/)[0];
+	req.url = req.url.replace(kvmid+'/', '');
+	req.url = '/9099'+req.url;
+	proxy.proxyRequest(req, res, {
+		host: 'storm.bitcable.com',
+		port: 443,
+		https: true
+	});
+}).listen(4430);
 
 // SSL features
 
@@ -31,9 +55,9 @@ app.configure(function(){
 	app.use(express.session({ secret: "dash is cool" }));
 	app.set('view engine', 'jade');
 	app.use(express.bodyParser());
+	app.use(app.router);
 	app.use(express.methodOverride());
 	app.use(require('stylus').middleware({ src: __dirname + '/public', compress: true }));
-	app.use(app.router);
 	app.use(express.static(__dirname + '/public'));
 });
 
@@ -47,6 +71,29 @@ app.configure('production', function(){
 
 // Routes
 
+
+app.get(/console\/([\w]+)\/[.]*/, function(req, res) {
+	req.url = req.url.replace('/console/'+req.params[0], '');
+	req.url = '/9099'+req.url;
+	console.log(req.url);
+	proxy.proxyRequest(req, res, {
+		host: 'storm.bitcable.com',
+		port: 443,
+		https: true
+	});
+});
+
+app.post(/console\/([\w]+)\/[.]*/, function(req, res) {
+	req.url = req.url.replace('/console/'+req.params[0], '');
+	req.url = '/9099'+req.url;
+	console.log(req.url);
+	proxy.proxyRequest(req, res, {
+		host: 'storm.bitcable.com',
+		port: 443,
+		https: true
+	});
+});
+
 app.get('/', routes.index);
 app.post('/auth', routes.auth);
 
@@ -56,6 +103,5 @@ app.get('/logout', function(req, res) {
 });
 
 app.get('/manage/:kvmid', routes.manage);
-
 app.listen(443, '199.58.161.141');
 //console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
