@@ -54,18 +54,18 @@ $rootSize = trim($plans[$plan][3]);
 `rm /kvmdev/$kvmID`;
 `mknod -m660 /kvmdev/$kvmID b 7 0`;
 
+$kvmIDtmp = $kvmID;
+if(is_numeric($kvmID[strlen($kvmID)-1]))
+	$kvmIDtmp .= 'p';
+
 `losetup /kvmdev/$kvmID /dev/vps/$kvmID`;
 `kpartx -av /kvmdev/$kvmID`;
-//`e2fsck -f /dev/mapper/$kvmIDp1`;
-shell_exec("e2fsck -f /dev/mapper/".$kvmID."p1");
-//`resize2fs -f /dev/mapper/$kvmIDp1`;
-shell_exec("resize2fs -f /dev/mapper/".$kvmID."p1");
-//`mkswap -f /dev/mapper/$kvmIDp2`;
-shell_exec("mkswap -f /dev/mapper/".$kvmID."p2");
+shell_exec("e2fsck -f /dev/mapper/".$kvmIDtmp."1");
+shell_exec("resize2fs -f /dev/mapper/".$kvmIDtmp."1");
+shell_exec("mkswap -f /dev/mapper/".$kvmIDtmp."2");
 `rm -rf /kvmmnt/$kvmID/`;
 `mkdir /kvmmnt/$kvmID/`;
-//`mount /dev/mapper/$kvmIDp1 /kvmmnt/$kvmID/`;
-shell_exec("mount /dev/mapper/".$kvmID."p1 /kvmmnt/$kvmID/");
+shell_exec("mount /dev/mapper/".$kvmIDtmp."1 /kvmmnt/$kvmID/");
 `chmod +w /kvmmnt/$kvmID/etc/shadow`;
 `chmod +w /kvmmnt/$kvmID/etc/fstab`;
 
