@@ -62,8 +62,8 @@ if(is_numeric($kvmID[strlen($kvmID)-1]))
 
 `losetup /kvmdev/$kvmID /dev/vps/$kvmID`;
 `kpartx -av /kvmdev/$kvmID`;
-shell_exec("e2fsck -f /dev/mapper/".$kvmIDtmp."1");
-shell_exec("resize2fs -f /dev/mapper/".$kvmIDtmp."1");
+shell_exec("e4fsck -f /dev/mapper/".$kvmIDtmp."1");
+shell_exec("resize4fs -f /dev/mapper/".$kvmIDtmp."1");
 shell_exec("mkswap -f /dev/mapper/".$kvmIDtmp."2");
 `rm -rf /kvmmnt/$kvmID/`;
 `mkdir /kvmmnt/$kvmID/`;
@@ -133,15 +133,15 @@ file_put_contents("/kvmmnt/$kvmID/etc/shadow", implode($shadow));
 `userdel $kvmID`;
 `rm -rf /home/$kvmID`;
 
-`useradd $kvmID`;
+`useradd $kvmID -m`;
 `adduser $kvmID libvirtd`;
-`mkdir /home/$kvmID`;
+//`mkdir /home/$kvmID`;
 `usermod -s /bcsh $kvmID`;
 `touch /home/$kvmID/.hushlogin`;
-`chown $kvmID:$kvmID /home/$kvmID`;
+//`chown $kvmID:$kvmID /home/$kvmID`;
 `chown $kvmID:$kvmID /home/$kvmID/.hushlogin`;
 
-$passchange = 'echo "'.$rootPassword.'\n'.$rootPassword.'" | passwd '.$kvmID;
+$passchange = 'echo -e "'.$rootPassword.'\n'.$rootPassword.'" | passwd '.$kvmID;
 shell_exec($passchange);
 
 echo "
