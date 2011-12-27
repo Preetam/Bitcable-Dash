@@ -141,7 +141,7 @@ file_put_contents("/kvmmnt/$kvmID/etc/shadow", implode($shadow));
 //`chown $kvmID:$kvmID /home/$kvmID`;
 `chown $kvmID:$kvmID /home/$kvmID/.hushlogin`;
 
-$passchange = 'echo -e "'.$rootPassword.'\n'.$rootPassword.'" | passwd '.$kvmID;
+$passchange = 'echo "'.$rootPassword.'\\n'.$rootPassword.'" | passwd '.$kvmID;
 shell_exec($passchange);
 
 echo "
