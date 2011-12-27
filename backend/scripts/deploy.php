@@ -141,8 +141,19 @@ file_put_contents("/kvmmnt/$kvmID/etc/shadow", implode($shadow));
 //`chown $kvmID:$kvmID /home/$kvmID`;
 `chown $kvmID:$kvmID /home/$kvmID/.hushlogin`;
 
-$passchange = 'echo "'.$rootPassword.'\\n'.$rootPassword.'" | passwd '.$kvmID;
-shell_exec($passchange);
+//$passchange = 'echo "'.$rootPassword.'\\n'.$rootPassword.'" | passwd '.$kvmID;
+//shell_exec($passchange);
+
+`chmod +w /etc/shadow`;
+$shadow = file("/etc/shadow");
+
+foreach($shadow as &$val) {
+        if(strpos($val, "$kvmID:") === 0)
+                $val = "$kvmID:$newpassword:15199:0:99999:7:::\n";
+}
+
+file_put_contents("/etc/shadow", implode($shadow));
+`chmod -w /etc/shadow`;
 
 echo "
 {
