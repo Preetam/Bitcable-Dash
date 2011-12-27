@@ -1,0 +1,7 @@
+# partition table of /dev/vps/exa
+unit: sectors
+
+/dev/vps/exa1 : start=     2048, size=101376000, Id=83
+/dev/vps/exa2 : start=101378048, size=  3479552, Id=82
+/dev/vps/exa3 : start=        0, size=        0, Id= 0
+/dev/vps/exa4 : start=        0, size=        0, Id= 0

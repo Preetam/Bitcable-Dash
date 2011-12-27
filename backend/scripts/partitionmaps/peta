@@ -1,0 +1,7 @@
+# partition table of /dev/vps/peta
+unit: sectors
+
+/dev/vps/peta1 : start=     2048, size= 50176000, Id=83
+/dev/vps/peta2 : start= 50178048, size=  2250752, Id=82
+/dev/vps/peta3 : start=        0, size=        0, Id= 0
+/dev/vps/peta4 : start=        0, size=        0, Id= 0

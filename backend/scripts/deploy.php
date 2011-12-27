@@ -49,7 +49,9 @@ $imageFile = $images[$image];
 
 $rootSize = trim($plans[$plan][3]);
 
-`echo "d\\nn\\np\\n\\n\\n+$rootSize\\nn\\np\\n\\n\\n\\nt\\n2\\n82\\np\\nw\\n" | fdisk /dev/vps/$kvmID`;
+//`echo "d\\nn\\np\\n\\n\\n+$rootSize\\nn\\np\\n\\n\\n\\nt\\n2\\n82\\np\\nw\\n" | fdisk /dev/vps/$kvmID`;
+
+`cat ./partitionmaps/$plan | sfdisk /dev/vps/$kvmID --force`;
 
 `rm /kvmdev/$kvmID`;
 `mknod -m660 /kvmdev/$kvmID b 7 0`;

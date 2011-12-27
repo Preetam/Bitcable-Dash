@@ -1,0 +1,7 @@
+# partition table of /dev/vps/zetta
+unit: sectors
+
+/dev/vps/zetta1 : start=     2048, size=207618048, Id=83
+/dev/vps/zetta2 : start=207620096, size=  2095104, Id=82
+/dev/vps/zetta3 : start=        0, size=        0, Id= 0
+/dev/vps/zetta4 : start=        0, size=        0, Id= 0

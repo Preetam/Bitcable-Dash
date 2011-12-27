@@ -1,0 +1,7 @@
+# partition table of /dev/vps/yotta
+unit: sectors
+
+/dev/vps/yotta1 : start=     2048, size=417333248, Id=83
+/dev/vps/yotta2 : start=417335296, size=  2095104, Id=82
+/dev/vps/yotta3 : start=        0, size=        0, Id= 0
+/dev/vps/yotta4 : start=        0, size=        0, Id= 0
