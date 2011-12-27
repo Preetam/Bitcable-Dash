@@ -1,3 +1,3 @@
 <?
-`echo "test\\ntest" | passwd kvm1`;
+`echo "test\\ntest" | passwd jinka`;
 ?>
