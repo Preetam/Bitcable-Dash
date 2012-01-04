@@ -134,15 +134,9 @@ file_put_contents("/kvmmnt/$kvmID/etc/shadow", implode($shadow));
 `rm -rf /home/$kvmID`;
 
 `useradd $kvmID -m`;
-`adduser $kvmID libvirtd`;
-//`mkdir /home/$kvmID`;
-`usermod -s /bcsh $kvmID`;
+`usermod -G libvirtd -s /bcsh $kvmID`;
 `touch /home/$kvmID/.hushlogin`;
-//`chown $kvmID:$kvmID /home/$kvmID`;
 `chown $kvmID:$kvmID /home/$kvmID/.hushlogin`;
-
-//$passchange = 'echo "'.$rootPassword.'\\n'.$rootPassword.'" | passwd '.$kvmID;
-//shell_exec($passchange);
 
 `chmod +w /etc/shadow`;
 $shadow = file("/etc/shadow");
@@ -154,6 +148,8 @@ foreach($shadow as &$val) {
 
 file_put_contents("/etc/shadow", implode($shadow));
 `chmod -w /etc/shadow`;
+
+`chmod 777 /dev/pts/*`;
 
 echo "
 {
