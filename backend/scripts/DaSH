@@ -1,0 +1,89 @@
+#!/usr/bin/php
+<?
+    $user = trim(`id -un`);
+    $hostname = trim(`hostname`);
+    declare(ticks = 1);
+
+    pcntl_signal(SIGTERM, "signal_handler");
+    pcntl_signal(SIGINT, "signal_handler");
+
+    function signal_handler($signal) {
+        switch($signal) {
+            case SIGTERM:
+		break;
+            case SIGKILL:
+		break;
+            case SIGINT:
+		break;
+        }
+    }
+
+function my_readline_completion_function($string, $index) { 
+  $array = array( 
+    'start', 
+    'stop', 
+    'destroy', 
+    'console', 
+    'exit', 
+  ); 
+  return $array; 
+} 
+system("clear");
+
+echo "Welcome to the DaSH (Dash SHell)!
+Autocomplete is availble. Use it!
+
+Available commands:
+clear         clear the screen
+start         start your KVM
+stop          stop your KVM
+destroy       kill your KVM (shut off power)
+console       attach to console
+exit          exit the shell
+";
+
+$handle = fopen ("php://stdin","r");
+readline_completion_function('my_readline_completion_function');
+while(true) {
+$stdin = readline("$user@$hostname # ");
+if($stdin)
+  readline_add_history($stdin);
+switch($stdin) {
+  case "start":
+    `virsh -c qemu:///system start $user`;
+    break;
+  case "stop":
+    `virsh -c qemu:///system shutdown $user`;
+    break;
+  case "destroy":
+    `virsh -c qemu:///system destroy $user`;
+    break;
+  case "exit":
+    exit;
+    break;
+  case "clear":
+    system('clear');
+    break;
+  case "console":
+    passthru("virsh -c qemu:///system console $user");
+    break;
+  case "":
+    echo "\n";
+    break;
+  case false:
+    system('clear');
+    echo "See ya later!\n\n";
+    exit;
+    break;
+  default:
+    echo "Unknown command\n
+start         start your KVM
+stop          stop your KVM
+destroy       kill your KVM (shut off power)
+console       attach to console
+exit          exit the shell
+";
+    break;
+}
+}
+?>

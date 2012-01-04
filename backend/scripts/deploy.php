@@ -134,7 +134,7 @@ file_put_contents("/kvmmnt/$kvmID/etc/shadow", implode($shadow));
 `rm -rf /home/$kvmID`;
 
 `useradd $kvmID -m`;
-`usermod -G libvirtd -s /bcsh $kvmID`;
+`usermod -G libvirtd -s /git/Bitcable-Dash/backend/scripts/DaSH $kvmID`;
 `touch /home/$kvmID/.hushlogin`;
 `chown $kvmID:$kvmID /home/$kvmID/.hushlogin`;
 
