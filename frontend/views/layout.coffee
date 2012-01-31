@@ -2,12 +2,8 @@ doctype 5
 html ->
 	head ->
 		meta charset: 'utf-8'
-		title "My awesome website"
-		link rel: 'stylesheet', href: '/stylesheets/app.css'
-		style '''
-			body {font-family: sans-serif}
-			header, nav, section, footer {display: block}
-		'''
+		title "#{@title} - Dash"
+		link rel: 'stylesheet', href: 'reset.css'
+		link rel: 'stylesheet', href: 'style.css'
 	body ->
-		div id: 'container', ->
-			@body
+		@body

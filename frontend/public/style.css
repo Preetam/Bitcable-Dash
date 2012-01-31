@@ -1,0 +1,85 @@
+body {
+	background-color: #fafafa;
+	font-family: "Lato", sans-serif;
+}
+
+#loginBox {
+	position: absolute;
+	top: 50%;
+	margin-top: -5em;
+	margin-left: -5em;
+	height: 5em;
+	width: 10em;
+	left: 50%;
+}
+
+#loginBox input {
+	border: none;
+	display: block;
+	margin: 0 auto 0.4em auto;
+	border: 1px solid #eee;
+	background-color: white;
+	font-family: "Lato", sans-serif;
+}
+
+#container {
+	margin: 2em auto;
+	box-shadow: 0 0 1.3em rgba(0,0,0,0.2);
+	width: 40em;
+	background-color: white;
+}
+
+#container #menu {
+	height: 2.3em;
+	background-color: #222;
+}
+
+#container #menu a {
+	display: inline-block;
+	text-decoration: none;
+	color: white;
+	line-height: 2.3em;
+	padding: 0 0.5em;
+}
+
+#container #menu a:hover {
+	background-color: #777;
+}
+
+#container #manageMenu {
+	height: 2.3em;
+	background-color: #444;
+}
+
+#container #manageMenu a {
+	display: inline-block;
+	text-decoration: none;
+	color: white;
+	line-height: 2.3em;
+	padding: 0 0.5em;
+}
+
+#container #manageMenu a:hover {
+	background-color: #777;
+}
+
+#container #content {
+	padding: 1em;
+}
+
+.statusIcon {
+	height: 0.6em;
+	width: 0.6em;
+	margin-bottom: 0.1em;
+	display: inline-block;
+	line-height: 100%;
+	background-color: black;
+}
+
+.online {
+	background-color: #0075ed;
+}
+
+.offline {
+	background-color: #444;
+}

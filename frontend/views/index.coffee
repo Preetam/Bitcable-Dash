@@ -1,1 +1,2 @@
-p 'meh'
+div id: 'container', ->
+	p 'meh'

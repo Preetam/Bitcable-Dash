@@ -1,7 +1,6 @@
 express = require('express')
 nonssl = express.createServer()
 
-crypto = require('crypto')
 fs = require('fs')
 db = require('./db.js').db
 https = require('https')
@@ -36,3 +35,6 @@ app.configure(function(){
 `
 
 app.get '/', require('./routes/default')
+app.post '/auth', require('./routes/auth')
+app.get '/auth', (req, res) ->
+	res.redirect '/'
