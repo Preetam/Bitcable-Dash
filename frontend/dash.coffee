@@ -38,3 +38,4 @@ app.get '/', require('./routes/default')
 app.post '/auth', require('./routes/auth')
 app.get '/auth', (req, res) ->
 	res.redirect '/'
+app.get '/manage/:kvmid/', require('./routes/manage')

@@ -4,6 +4,7 @@ module.exports = (req,res) ->
 		res.render 'login', title: "Login"
 	else
 		db = require('../db.js').db
-		db.view 'dash', 'get_kvms', key: req.session.user, (e,r,h) ->
-			kvms = r.rows;
-			res.render 'index', { kvms: kvms }
+		db.get "KVM-#{req.params.kvmid}", (e,r,h) ->
+			kvm = r
+			console.log kvm
+			res.render 'manage', {kvm: kvm}
