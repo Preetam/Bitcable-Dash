@@ -39,3 +39,12 @@ app.post '/auth', require('./routes/auth')
 app.get '/auth', (req, res) ->
 	res.redirect '/'
 app.get '/manage/:kvmid/', require('./routes/manage')
+
+app.get '/manage/:kvmid/start', require('./routes/manage/start')
+app.post '/manage/:kvmid/start', require('./routes/manage/start')
+
+app.get '/manage/:kvmid/stop', require('./routes/manage/stop')
+app.post '/manage/:kvmid/stop', require('./routes/manage/stop')
+
+app.get '/manage/:kvmid/redeploy', require('./routes/manage/redeploy')
+app.post '/manage/:kvmid/redeploy', require('./routes/manage/redeploy')
