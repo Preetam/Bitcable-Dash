@@ -4,7 +4,7 @@ startKVM = (node, kvmid) ->
 	qs = '/?'+ querystring.stringify(
 			host: node
 			domain: kvmid
-			action: 'start'
+			action: 'poweroff'
 			key: 'NotVerySecure'
 		)
 	https.get(
