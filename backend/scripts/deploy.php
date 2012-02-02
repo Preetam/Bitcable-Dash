@@ -120,7 +120,9 @@ exec /sbin/getty -L 115200 ttyS0 xterm");
 // END UBUNTU CONFIGURATION
 //
 
-$newpassword = trim(`openssl passwd -1 "$rootPassword"`);
+//$newpassword = trim(`openssl passwd -1 "$rootPassword"`);
+$newpassword = trim(crypt($rootPassword));
+
 $shadow = file("/kvmmnt/$kvmID/etc/shadow");
 $shadow[0] = "root:$newpassword:15199:0:99999:7:::\n";
 file_put_contents("/kvmmnt/$kvmID/etc/shadow", implode($shadow));
@@ -134,7 +136,7 @@ file_put_contents("/kvmmnt/$kvmID/etc/shadow", implode($shadow));
 `rm -rf /home/$kvmID`;
 
 `useradd $kvmID -m`;
-`usermod -G libvirtd -s /git/Bitcable-Dash/backend/scripts/DaSH $kvmID`;
+`usermod -G libvirtd -s /bin/DaSH $kvmID`;
 `touch /home/$kvmID/.hushlogin`;
 `chown $kvmID:$kvmID /home/$kvmID/.hushlogin`;
 
