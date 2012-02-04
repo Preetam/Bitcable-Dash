@@ -12,7 +12,7 @@ Redirecting non-SSL traffic to SSL.
 nonssl.get '*', (req, res) ->
 	res.redirect 'https://dash.bitcable.com/'
 
-nonssl.listen 8080
+nonssl.listen 80
 
 privateKey = fs.readFileSync('privatekey.pem').toString();
 certificate = fs.readFileSync('certificate.pem').toString();
@@ -20,8 +20,7 @@ caCert = fs.readFileSync('ca.pem').toString();
 app = module.exports = express.createServer({key: privateKey, cert: certificate, ca: caCert});
 app.set 'view engine', 'coffee'
 app.register '.coffee', require('coffeekup').adapters.express
-app.listen 443
-
+app.listen 443, '199.58.161.141'
 `
 app.configure(function(){
 	app.set('views', __dirname + '/views');
