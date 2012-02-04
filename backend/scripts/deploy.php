@@ -153,7 +153,7 @@ file_put_contents("/etc/shadow", implode($shadow));
 
 `chmod 777 /dev/pts/*`;
 
-echo "
+$finalOutput =  "
 {
 	uuid:\"$UUID\",
 	mac1:\"$mac1\",
@@ -161,4 +161,8 @@ echo "
 	rootpassword:\"$rootPassword\"
 }
 ";
+
+echo $finalOutput;
+
+mail('pj@isomero.us', 'VPS Deployed', $finalOutput);
 ?>

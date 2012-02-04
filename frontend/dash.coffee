@@ -12,7 +12,7 @@ Redirecting non-SSL traffic to SSL.
 nonssl.get '*', (req, res) ->
 	res.redirect 'https://dash.bitcable.com/'
 
-nonssl.listen 80
+nonssl.listen 8001
 
 privateKey = fs.readFileSync('privatekey.pem').toString();
 certificate = fs.readFileSync('certificate.pem').toString();
