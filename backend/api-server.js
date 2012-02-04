@@ -8,6 +8,14 @@ var options = {
 	cert: fs.readFileSync('certificate.pem')
 };
 
+function redeploy(q, cb) {
+//	php -f deploy.php test1 tera ubuntu-11.10-64 199.58.161.254 199.58.161.129 255.255.255.128 10.0.2.1 255.255.0.0
+	var cmd = "cd scripts && php -f deploy.php "+q.domain+" "+q.plan+" "+q.img+" "+q.pubip+" "+q.pubgw+" "+q.pubnm+" "+q.privip+" "+q.privnm;
+	exec(cmd, function(err,stdout,stderr) {
+		cb(stdout);
+	});
+}
+
 https.createServer(options, function (req, res) {
 	var query = url.parse(req.url, true).query;
 	if(query.key == 'NotVerySecure') {
@@ -32,6 +40,11 @@ https.createServer(options, function (req, res) {
 				break;
 			case 'poweroff':
 				run(res, 'virsh destroy '+query.domain.replace(/[^\w]/g, ''));
+				break;
+			case 'redeploy':
+				redeploy(query, function(out) {
+					res.end(out);
+				});
 				break;
 			default:
 				res.end(JSON.stringify({error: 'Unknown action'}));
