@@ -14,15 +14,6 @@ nonssl.get '*', (req, res) ->
 
 nonssl.listen 8001
 
-###
-`
-privateKey = fs.readFileSync('privatekey.pem').toString();
-certificate = fs.readFileSync('certificate.pem').toString();
-caCert = fs.readFileSync('ca.pem').toString();
-app = module.exports = express.createServer({key: privateKey, cert: certificate, ca: caCert});
-`
-###
-
 privateKey = (fs.readFileSync 'privatekey.pem').toString()
 certificate = (fs.readFileSync 'certificate.pem').toString()
 caCert = (fs.readFileSync 'ca.pem').toString()
@@ -31,20 +22,6 @@ app = module.exports = express.createServer {key: privateKey, cert: certificate,
 app.set 'view engine', 'coffee'
 app.register '.coffee', require('coffeekup').adapters.express
 app.listen 443, '199.58.161.141'
-
-###
-`
-app.configure(function(){
-	app.set('views', __dirname + '/views');
-	app.use(express.cookieParser());
-	app.use(express.session({ secret: "dash is cool" }));
-	app.use(express.bodyParser());
-	app.use(app.router);
-	app.use(express.methodOverride());
-	app.use(express.static(__dirname + '/public'));
-});
-`
-###
 
 app.configure () ->
 	app.set 'views', __dirname + '/views'
@@ -75,3 +52,5 @@ app.get '/manage/:kvmid/redeploy', require('./routes/manage/redeploy')
 app.post '/manage/:kvmid/redeploy', require('./routes/manage/redeploy')
 
 app.get '/manage/:kvmid/status', require('./routes/manage/status')
+
+app.get '/order', require('./routes/order')
