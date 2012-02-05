@@ -23,31 +23,33 @@ https.createServer(options, function (req, res) {
 			res.writeHead(400);
 			res.end(JSON.stringify({error: "Bad request"}));
 		}
-		res.writeHead(200);
-		switch(query.action) {
-			case 'status':
-				/*
-				 * Note: we're removing all non-alphanumeric characters. We don't want anything
-				 * bad to happen :)
-				 */
-				run(res, 'virsh domstate '+query.domain.replace(/[^\w]/g, ''));
-				break;
-			case 'start':
-				run(res, 'virsh start '+query.domain.replace(/[^\w]/g, ''));
-				break;
-			case 'stop':
-				run(res, 'virsh shutdown '+query.domain.replace(/[^\w]/g, ''));
-				break;
-			case 'poweroff':
-				run(res, 'virsh destroy '+query.domain.replace(/[^\w]/g, ''));
-				break;
-			case 'redeploy':
-				redeploy(query, function(out) {
-					res.end(out);
-				});
-				break;
-			default:
-				res.end(JSON.stringify({error: 'Unknown action'}));
+		else {
+			res.writeHead(200);
+			switch(query.action) {
+				case 'status':
+					/*
+					 * Note: we're removing all non-alphanumeric characters. We don't want anything
+					 * bad to happen :)
+					 */
+					getStatus(res, query.domain.replace(/[^\w]/g, ''));
+					break;
+				case 'start':
+					run(res, 'virsh start '+query.domain.replace(/[^\w]/g, ''));
+					break;
+				case 'stop':
+					run(res, 'virsh shutdown '+query.domain.replace(/[^\w]/g, ''));
+					break;
+				case 'poweroff':
+					run(res, 'virsh destroy '+query.domain.replace(/[^\w]/g, ''));
+					break;
+				case 'redeploy':
+					redeploy(query, function(out) {
+						res.end(out);
+					});
+					break;
+				default:
+					res.end(JSON.stringify({error: 'Unknown action'}));
+			}
 		}
 	}
 	else {
@@ -62,5 +64,11 @@ function run(res, cmd) {
 			    error: stderr
 			  };
 		res.end(JSON.stringify(out));
+	});
+}
+
+function getStatus(res, domid) {
+	exec("virsh domstate "+domid, function(err, stdout, stderr) {
+		res.end(''+(stdout.indexOf('running') == 0));
 	});
 }
