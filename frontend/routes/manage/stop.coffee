@@ -1,4 +1,4 @@
-startKVM = (node, kvmid) ->
+stopKVM = (node, kvmid) ->
 	https = require('https')
 	querystring = require('querystring')
 	qs = '/?'+ querystring.stringify(
@@ -12,12 +12,10 @@ startKVM = (node, kvmid) ->
 			path: qs
 			port: 4433
 		,(res) ->
-			console.log res.statusCode
 		)
 		
 
 module.exports = (req,res) ->
-	console.log req.session.user
 	if req.session.user is undefined
 		res.render 'login', title: "Login"
 	else if req.method is "GET"
@@ -26,5 +24,5 @@ module.exports = (req,res) ->
 		db = require('../../db.js').db
 		db.get "KVM-#{req.params.kvmid}", (e,r,h) ->
 			kvm = r
-			startKVM kvm.node, req.params.kvmid
+			stopKVM kvm.node, req.params.kvmid
 			res.redirect "/manage/#{req.params.kvmid}/"

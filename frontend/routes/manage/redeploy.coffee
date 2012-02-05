@@ -12,12 +12,10 @@ startKVM = (node, kvmid) ->
 			path: qs
 			port: 4433
 		,(res) ->
-			console.log res.statusCode
 		)
 		
 
 module.exports = (req,res) ->
-	console.log req.session.user
 	if req.session.user is undefined
 		res.render 'login', title: "Login"
 	else if req.method is "GET"
