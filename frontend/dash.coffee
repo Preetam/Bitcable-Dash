@@ -55,3 +55,6 @@ app.get '/manage/:kvmid/status', require('./routes/manage/status')
 
 app.get '/order', require('./routes/order/order')
 app.post '/order', require('./routes/order/submittedorder')
+
+app.post '/ipn', require('./routes/ipn')
+app.get '/ipn', require('./routes/ipn')

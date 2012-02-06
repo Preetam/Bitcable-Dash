@@ -7,6 +7,54 @@ sha512 = (str) ->
 	shasum.update str
 	return shasum.digest 'hex'
 
+###
+Charge succeeded. Deploying a VPS...
+###
+
+deploy = (node, kvmid) ->
+	https = require('https')
+	querystring = require('querystring')
+	qs = '/?'+ querystring.stringify(
+			host: node
+			domain: kvmid
+			action: 'redeploy'
+			key: 'NotVerySecure'
+			plan: 'tera'
+			img: 'ubuntu-11.10-64'
+			pubip: '199.58.161.254'
+			pubgw: '199.58.161.129'
+			pubnm: '255.255.255.128'
+			privip: '10.0.2.1'
+			privnm: '255.255.0.0'
+		)
+	https.get(
+			host: node
+			path: qs
+			port: 4433
+		,(res) ->
+			output = ''
+			res.on 'data', (chunk)->
+				output += chunk
+			res.on 'end', ->
+				obj = JSON.parse(output)
+				obj._id = 'KVM-pjinka1'
+				obj.client = 'pj@isomero.us'
+				obj.node = 'storm.bitcable.com'
+				obj.ip = '199.58.161.254'
+				obj.hostname = 'some.host.name'
+				db = require('../../db.js').db
+				console.log "==============="
+				console.log obj
+				console.log "==============="
+				db.insert obj, (e,r,h) ->
+		)
+
+deployVPS = () ->
+	###
+	php -f deploy.php test1 tera ubuntu-11.10-64 199.58.161.254 199.58.161.129 255.255.255.128 10.0.2.1 255.255.0.0
+	###
+	deploy 'storm.bitcable.com', 'pjinka1'
+
 chargeCustomer = (id) ->
 	today = new Date()
 
@@ -28,6 +76,7 @@ chargeCustomer = (id) ->
 	stripe.invoice_items.create invoiceItem, (err, item) ->
 		stripe.invoices.list {customer: id}, (err, res) ->
 			console.log(res)
+			deployVPS()
 
 ###
 Inserting the new client's data into the Dash database
@@ -45,8 +94,8 @@ createNewDashUser = (a) ->
 		stripeid: a.stripeid
 	console.log(doc)
 	db = require('../../db.js').db
-	#db.insert doc, (e,r,h) ->
-	#	console.log e if e
+	db.insert doc, (e,r,h) ->
+		console.log e if e
 
 	chargeCustomer a.stripeid if a.stripeid
 	
