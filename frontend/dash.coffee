@@ -53,6 +53,8 @@ app.post '/manage/:kvmid/redeploy', require('./routes/manage/redeploy')
 
 app.get '/manage/:kvmid/status', require('./routes/manage/status')
 
+app.get '/new', require('./routes/new')
+
 app.get '/order', require('./routes/order/order')
 app.post '/order', require('./routes/order/submittedorder')
 
