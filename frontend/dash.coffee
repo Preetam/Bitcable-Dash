@@ -28,11 +28,29 @@ app.configure () ->
 	app.use express.cookieParser()
 	app.use express.session { secret: "dash is cool" }
 	app.use express.bodyParser()
+	app.use express.static __dirname + '/public'
 	app.use app.router
 	app.use express.methodOverride()
-	app.use express.static __dirname + '/public'
 
 # Route definitions
+
+# Don't need to be logged in
+app.get '/new', require('./routes/new')
+app.post '/new', require('./routes/new')
+
+app.get '/order', require('./routes/order/order')
+app.post '/order', require('./routes/order/submittedorder')
+
+app.post '/ipn', require('./routes/ipn')
+app.get '/ipn', require('./routes/ipn')
+
+app.get '*', (req, res, next) ->
+	if req.session.user is undefined
+		res.render 'login', title: "Login"
+	else
+		next()
+
+# Need to be logged in
 
 app.get '/', require('./routes/default')
 
@@ -52,11 +70,3 @@ app.get '/manage/:kvmid/redeploy', require('./routes/manage/redeploy')
 app.post '/manage/:kvmid/redeploy', require('./routes/manage/redeploy')
 
 app.get '/manage/:kvmid/status', require('./routes/manage/status')
-
-app.get '/new', require('./routes/new')
-
-app.get '/order', require('./routes/order/order')
-app.post '/order', require('./routes/order/submittedorder')
-
-app.post '/ipn', require('./routes/ipn')
-app.get '/ipn', require('./routes/ipn')

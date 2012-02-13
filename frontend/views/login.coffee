@@ -1,17 +1,16 @@
 script ->
-	'''
-	function emailField(obj) {
+	"
+	function clearValue(obj) {
 		obj.value = '';
 	}
-	
-	function passwordField(obj) {
-		obj.value = '';
-		obj.type = 'password';
-	}'''
+	"
 
 div id: "loginBox", ->
-	'''<form action='/auth' method='post'>
-		<input name='username' onfocus='emailField(this)' value="email@address.com">
-		<input name='password' onfocus='passwordField(this)' value="password">
-		<input type='submit' value='Login'>
-	</form>'''
+	'''
+	<div id='topBar'><h1 class='logo'>dash</h1></div>
+	<form action='/auth' method='post'>
+		<input name='username' onfocus='clearValue(this)' value='email@address.com'>
+		<input name='password' type='password' onfocus='clearValue(this)' value='password'>
+		<input class='submitButton' type='submit' value='Login'>
+	</form>
+	'''
