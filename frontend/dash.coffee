@@ -58,6 +58,9 @@ app.get '*', (req, res, next) ->
 	else
 		next()
 
+app.get '/logout', (req, res) ->
+	req.session.destroy()
+	res.redirect '/'
 
 # Need to be logged in
 
@@ -79,3 +82,5 @@ app.get '/manage/:kvmid/redeploy', require('./routes/manage/redeploy')
 app.post '/manage/:kvmid/redeploy', require('./routes/manage/redeploy')
 
 app.get '/manage/:kvmid/status', require('./routes/manage/status')
+
+app.get '/billing/', require('./routes/billing')

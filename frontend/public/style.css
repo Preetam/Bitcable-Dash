@@ -1,3 +1,12 @@
+*::selection {
+  background-color: #0075ed;
+  color: #fff;
+}
+*::-moz-selection {
+  background-color: #0075ed;
+  color: #fff;
+}
+
 body {
 	background-color: #151515;
 	text-rendering: optimizeLegibility;
@@ -13,7 +22,7 @@ body {
 	margin-left: -7.5em;
 	margin-top: -6em;
 	height: 9.5em;
-	background-color: #000;
+	background-color: #0b0b0b;
 	width: 15em;
 	box-shadow: 0 0 2em black;
 }
@@ -34,7 +43,7 @@ body {
 #container {
 	margin: 4em auto;
 	width: 40em;
-	background-color: #000;
+	background-color: #0b0b0b;
 	min-height: 30em;
 	color: #ccc;
 	box-shadow: 0 0 2em black;
@@ -42,6 +51,12 @@ body {
 
 #content {
 	padding: 1em;
+}
+
+#content h1 {
+	font-size: 1.3em;
+	line-height: 1.5em;
+	color: #0075ed;
 }
 
 #loginBox input {
@@ -67,10 +82,11 @@ body {
 	background-image: url('/img/topbarbg.png');
 }
 
-#topBar h1.logo {
+#topBar h1.logo a {
 	font-family: "FunctionCapsMedium";
 	line-height: 49px;
 	color: white;
+	text-decoration: none;
 	font-size: 1.5em;
 	margin-left: 0.25em;
 	text-shadow: 0 1px 1px black;
@@ -85,6 +101,27 @@ body {
 
 	cursor: pointer;
 	display: inline;
+}
+
+#topBar a:hover {
+	color: #0075ed;
+}
+
+#topBar h1 {
+	display: inline
+}
+
+#topMenu {
+	float: right
+}
+
+#topMenu a {
+	line-height: 43px;
+	text-shadow: 0 0 0.4em black;
+	color: white;
+	text-decoration: none;
+	margin-right: 3em;
+	font-size: 0.8em;
 }
 
 .plans {
@@ -123,8 +160,13 @@ body {
 .planRadioButton:checked+label {
 	color: white;
 	text-shadow: 0 0 0.6em rgba(255,255,255,0.4);
-	border: 1px solid #666;
-	background-color: #222;
+	box-shadow: 0 0 0.8em rgba(0,117,237, 0.6);
+	border: 1px solid #0075ed;
+	background-color: #181818;
+}
+
+input:focus {
+	box-shadow: 0 0 0.3em rgba(0,117,237, 1);
 }
 
 .submitButton {
@@ -177,4 +219,14 @@ body {
 	color: white;
 	background-color: #222;
 	border: 1px solid #666;
+}
+
+label {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
 }

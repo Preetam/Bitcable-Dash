@@ -13,6 +13,7 @@ module.exports = (req, res) ->
 			if r.rows[0].value is sha512 "4s5ji7Lmu747De32T5o224283N263l"
 								+ sha512 req.body.password+"l65c6546P6v225213nj8628I65nPiH"
 				req.session.user = req.body.username
+				req.session.cookie.maxAge = 3600000
 		catch err
 			console.log err
 		

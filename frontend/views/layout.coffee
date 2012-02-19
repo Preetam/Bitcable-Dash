@@ -9,6 +9,11 @@ html ->
 		link rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Lato'
 	body ->
 		div id: 'container', ->
-			div id: 'topBar', -> h1 class: 'logo', -> "dash"
+			div id: 'topBar', ->
+				h1 class: 'logo', -> a href: '/', -> "dash"
+				if @menu isnt false
+					div id: 'topMenu', ->
+						a href: '#', -> 'Billing'
+						a href: '#', -> 'DNS'
 			div id: 'content', ->
 				@body
