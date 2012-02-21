@@ -15,6 +15,21 @@ body {
 	font-family: 'Lato', sans-serif;
 }
 
+#error {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	margin-left: -15em;
+	background-color: rgba(255, 0, 0, 0.5);
+	border-bottom-left-radius: .5em;
+	border-bottom-right-radius: .5em;
+	color: white;
+	padding: 0.3em;
+	font-weight: bold;
+	text-align: center;
+	width: 30em;
+}
+
 #loginBox {
 	position: absolute;
 	left: 50%;
@@ -108,7 +123,8 @@ body {
 }
 
 #topBar h1 {
-	display: inline
+	display: inline;
+	float: left;
 }
 
 #topMenu {
@@ -229,4 +245,75 @@ label {
 	-ms-user-select: none;
 	-o-user-select: none;
 	user-select: none;
+}
+
+.invoiceTable {
+	width: 80%;
+	margin: 0.5em auto;
+	border: 1px solid #222;
+}
+
+.invoiceTable tr {
+	background-color: #111;
+}
+
+.invoiceTable td {
+	padding: 0.5em;
+	font-size: 0.8em;
+}
+
+.invoiceTable td+td {
+	width: 20%;
+}
+
+.invoiceTable .total {
+	border: none;
+	font-weight: bold;
+}
+
+.invoiceTable .heading {
+	background-color: #050505;
+	border-bottom: 1px solid #222;
+}
+
+.vmBoxContainer {
+	text-align: center;
+}
+
+.vmBox {
+	width: 27%;
+	border: #222 solid 1px;
+	background-color: #151515;
+	height: 5em;
+	padding: 0.5em;
+	margin: 0 0.5em 0.5em 0.5em;
+	box-shadow: 0 0 0.5em rgba(0,0,0,0.3) inset;
+	cursor: pointer;
+	-webkit-transition: background-color 0.1s ease-in-out;
+	display: inline-block;
+}
+
+.online {
+	border-top: 3px solid green;
+}
+
+.offline {
+	border-top: 3px solid red;
+}
+
+.vmBox:hover {
+	background-color: #1d1d1d;
+}
+
+.vmBox .hostname {
+	font-size: 0.9em;
+	text-shadow: 0 1px 2px black;
+	text-transform: uppercase;
+	line-height: 1.5em;
+	font-weight: bold;
+}
+
+.vmBox .pub, .vmBox .priv, .vmBox .details {
+	font-size: 0.8em;
+	line-height: 1.5em;
 }

@@ -8,19 +8,12 @@ html ->
 		link rel: 'stylesheet', href: '/fonts/functioncaps_medium_macroman/stylesheet.css'
 		link rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Lato'
 	body ->
-		script ->
-			"
-			function clearValue(obj) {
-				obj.value = '';
-			}
-			"
-
 		div id: "loginBox", ->
 			'''
 			<div id='topBar'><h1 class='logo'><a href='/'>dash</a></h1></div>
 			<form action='/auth' method='post'>
-				<input name='username' onfocus='clearValue(this)' value='email@address.com'>
-				<input name='password' type='password' onfocus='clearValue(this)' value='password'>
+				<input name='username' placeholder='Email address'>
+				<input name='password' type='password' placeholder='Password'>
 				<input class='submitButton' type='submit' value='Login'>
 			</form>
 			'''

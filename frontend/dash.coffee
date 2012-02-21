@@ -10,7 +10,7 @@ Redirecting non-SSL traffic to SSL.
 ###
 
 nonssl.get '*', (req, res) ->
-	res.redirect 'https://dash.bitcable.com/'
+	res.redirect 'https://dash.bitcable.com'+req.url
 
 nonssl.listen 8001
 
@@ -84,3 +84,9 @@ app.post '/manage/:kvmid/redeploy', require('./routes/manage/redeploy')
 app.get '/manage/:kvmid/status', require('./routes/manage/status')
 
 app.get '/billing/', require('./routes/billing')
+app.get '/billing/invoices/:invoiceid', require('./routes/billing/invoice')
+app.get '/billing/addcard', require('./routes/billing/addcard')
+app.post '/billing/addcard', require('./routes/billing/addcard')
+
+app.get '/billing/removecard', require('./routes/billing/removecard')
+app.post '/billing/removecard', require('./routes/billing/removecard')

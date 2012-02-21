@@ -8,6 +8,7 @@
       "coffeekup": "0.3.x",
       "nano": "1.3.x",
       "stripe": "1.1.x",
-      "validator": "0.4.x"
+      "validator": "0.4.x",
+      "paypal-ipn": "1.0.x"
   }
 }

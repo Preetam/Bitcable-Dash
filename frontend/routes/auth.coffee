@@ -14,7 +14,9 @@ module.exports = (req, res) ->
 								+ sha512 req.body.password+"l65c6546P6v225213nj8628I65nPiH"
 				req.session.user = req.body.username
 				req.session.cookie.maxAge = 3600000
+				db.get "USER-#{req.body.username}", (e2, r2, h2) ->
+					req.session.userdoc = r2
+					res.redirect '/'
 		catch err
 			console.log err
 		
-		res.redirect '/'
