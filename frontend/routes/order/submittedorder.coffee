@@ -20,6 +20,9 @@ createNewDashUser = (a, cb) ->
 	catch err
 		error += err
 
+	if(a.prefix.match(/^[a-z][-a-z0-9]*$/) is null)
+		error += 'Invalid prefix. Use a valid Linux username.'
+
 	if(error isnt "")
 		cb(error)
 		return
