@@ -42,6 +42,7 @@ createNewDashUser = (a, cb) ->
 		state: a.state
 		zip: a.zip
 		country: a.country
+		increment: 1
 
 	console.log(doc)
 	db = require('../../db.js').db
@@ -49,6 +50,8 @@ createNewDashUser = (a, cb) ->
 		if e
 			console.log e
 			error += "That email address is already in use. " if e.error is 'conflict'
+		req.session.user = a.email
+		req.session.userdoc = doc
 
 	cb(error)
 
