@@ -14,12 +14,11 @@ getIPaddress = (type, cb) ->
 ram is the required amount of RAM.
 ###
 getAvailableNode = (ram, cb) ->
-	db.view 'dash', 'get_available_node', {key: null}, (e,r,h) ->
+	db.view 'dash', 'get_available_node', (e,r,h) ->
 		r = r.rows
 		for node in r
-			if node.key < ram
-				cb node.value
-				return
+			cb node.value if node.key >= ram
+			return
 
 ###
 Input:
