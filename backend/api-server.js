@@ -16,6 +16,8 @@ function redeploy(q, cb) {
 	});
 }
 
+console.log('huh');
+
 https.createServer(options, function (req, res) {
 	var query = url.parse(req.url, true).query;
 	if(query.key == 'NotVerySecure') {
@@ -43,6 +45,7 @@ https.createServer(options, function (req, res) {
 					run(res, 'virsh destroy '+query.domain.replace(/[^\w]/g, ''));
 					break;
 				case 'redeploy':
+					console.log('redeploy');
 					redeploy(query, function(out) {
 						res.end(out);
 					});

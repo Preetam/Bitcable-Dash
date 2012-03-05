@@ -28,7 +28,7 @@ $rootPassword = trim(substr(md5(rand().rand()), 0, 8));
 $plan = $argv[2];
 $image = $argv[3];
 
-$userEmail = $argv[9]
+$userEmail = $argv[9];
 
 $disk = $plans[$plan][0];
 $RAM = $plans[$plan][1];
