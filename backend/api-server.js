@@ -10,7 +10,7 @@ var options = {
 
 function redeploy(q, cb) {
 //	php -f deploy.php test1 tera ubuntu-11.10-64 199.58.161.254 199.58.161.129 255.255.255.128 10.0.2.1 255.255.0.0
-	var cmd = "cd scripts && php -f deploy.php "+q.domain+" "+q.plan+" "+q.img+" "+q.pubip+" "+q.pubgw+" "+q.pubnm+" "+q.privip+" "+q.privnm;
+	var cmd = "cd scripts && php -f deploy.php "+q.domain+" "+q.plan+" "+q.img+" "+q.pubip+" "+q.pubgw+" "+q.pubnm+" "+q.privip+" "+q.privnm+" "+q.useremail;
 	exec(cmd, function(err,stdout,stderr) {
 		cb(stdout);
 	});
@@ -69,6 +69,9 @@ function run(res, cmd) {
 
 function getStatus(res, domid) {
 	exec("virsh domstate "+domid, function(err, stdout, stderr) {
-		res.end(''+(stdout.indexOf('running') == 0));
+		if(stdout.indexOf('running') == 0)
+			res.end('1');
+		else
+			res.end('0');
 	});
 }
