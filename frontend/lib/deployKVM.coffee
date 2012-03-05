@@ -13,9 +13,11 @@ sendDeploySignal = (kvmdoc) ->
 		privnm: kvmdoc.privateIP.netmask
 		key: "NotVerySecure"
 		action: "redeploy"
+		useremail: kvmdoc.client
 	querystr = "/?"+require('querystring').stringify(reqVars)
 	require('https').get {host: kvmdoc.node, port: 4433, path: querystr}, (res) ->
-		console.log(res)
+
+	console.log(querystr)
 
 ###
 vars = [block, ip, netmask, [gateway]]
