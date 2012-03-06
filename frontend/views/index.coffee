@@ -1,5 +1,5 @@
 for kvm in @kvms
-	div class: 'vmBox', onclick: "window.location = '/manage/pjinka1'", ->
+	div class: 'vmBox', onclick: "window.location = '/manage/#{kvm.value.kvmID}/'", ->
 		div class: 'hostname', -> kvm.value.hostname
 		div class: 'pub', -> kvm.value.publicIP.address
 		div class: 'priv', -> kvm.value.privateIP.address

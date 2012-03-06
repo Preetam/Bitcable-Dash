@@ -51,13 +51,6 @@
     return app.use(express.methodOverride());
   });
 
-  app.get('/shell', function(req, res) {
-    return require('child_process').exec("shellinaboxd --css white-on-black.css -s /:SSH:" + req.query.node + " --cgi", function(err, stdout, stderr) {
-      res.writeHead(stdout);
-      return res.end();
-    });
-  });
-
   app.get('/consoletest', require('./routes/consoletest'));
 
   app.get('/new', require('./routes/new'));
@@ -111,6 +104,15 @@
   app.post('/manage/:kvmid/redeploy', require('./routes/manage/redeploy'));
 
   app.get('/manage/:kvmid/status', require('./routes/manage/status'));
+
+  app.get('/manage/:kvmid/shell', function(req, res) {
+    return db.get("KVM-" + req.params.kvmid, function(e, r, h) {
+      return require('child_process').exec("shellinaboxd --css white-on-black.css -s /:root:nogroup:/:\"ssh " + req.params.kvmid + "@" + r.node + "\" --cgi", function(err, stdout, stderr) {
+        res.writeHead(stdout);
+        return res.end();
+      });
+    });
+  });
 
   app.get('/billing/', require('./routes/billing'));
 
