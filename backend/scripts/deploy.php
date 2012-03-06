@@ -143,6 +143,11 @@ file_put_contents("/kvmmnt/$kvmID/etc/shadow", implode($shadow));
 `usermod -G libvirtd -s /bin/DaSH $kvmID`;
 `touch /home/$kvmID/.hushlogin`;
 `chown $kvmID:$kvmID /home/$kvmID/.hushlogin`;
+`mkdir /home/$kvmID/.ssh`;
+file_put_contents("/home/$kvmID/.ssh/authorized_keys2", "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDNh4zBb9UwZ3AV6oLon4VuyPhQO6c3lVOO+q5N0a6HrhD9Y4s7kcD8sEShoYiDJVthWt47y9S/0LAsgg4+pXdm1uua+/XBDmyv1PqE+L4OGadNqMDq4ja9ksGvEqOViOas76K1+x5adxncYLwvoJLYGnBAGIY20rmcllPZ/D8nQ0LcShfcg+uGSYNpKK8NuqBQpAudA9wPI1/AgI7REq78+lC0k0VkRnW0ZKv/aduey87syVZqZ6EpbE5S6bstLhFcFgeH9UZLSQU0its2OJSlJOGhILLbZPOa5g78/9Mp7qy2qg3f/jKkDI3H0dbQebfZKeBg3kQ66wvErKAGGa77 dashssh@dash");
+
+`chown $kvmID:$kvmID /home/$kvmID/.ssh`;
+`chown $kvmID:$kvmID /home/$kvmID/.ssh/authorized_keys2`;
 
 `chmod +w /etc/shadow`;
 $shadow = file("/etc/shadow");
