@@ -34,11 +34,6 @@ app.configure () ->
 
 # Route definitions
 
-app.get '/shell', (req, res) ->
-	require('child_process').exec("shellinaboxd --css white-on-black.css -s /:SSH:#{req.query.node} --cgi", (err, stdout, stderr) ->
-		res.writeHead(stdout)
-		res.end()
-	)
 
 app.get '/consoletest', require('./routes/consoletest')
 
@@ -82,6 +77,13 @@ app.get '/manage/:kvmid/redeploy', require('./routes/manage/redeploy')
 app.post '/manage/:kvmid/redeploy', require('./routes/manage/redeploy')
 
 app.get '/manage/:kvmid/status', require('./routes/manage/status')
+
+app.get '/manage/:kvmid/shell', (req, res) ->
+	db.get "KVM-#{req.params.kvmid}", (e,r,h) ->
+		require('child_process').exec("shellinaboxd --css white-on-black.css -s /:root:nogroup:/:\"ssh #{req.params.kvmid}@#{r.node}\" --cgi", (err, stdout, stderr) ->
+			res.writeHead(stdout)
+			res.end()
+		)
 
 app.get '/billing/', require('./routes/billing')
 app.get '/billing/invoices/:invoiceid', require('./routes/billing/invoice')
