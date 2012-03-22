@@ -17,5 +17,8 @@ html ->
 					div id: 'topMenu', ->
 						a href: '/billing/', -> 'Billing'
 						a href: '#', -> 'DNS'
+						div id: 'topUserInfo', ->
+							span class: 'username', @user
+							a href: '/logout', -> 'Log out'
 			div id: 'content', ->
 				@body

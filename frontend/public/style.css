@@ -8,11 +8,11 @@
 }
 
 body {
-	background-color: #151515;
+	background-color: #fafafa;
 	text-rendering: optimizeLegibility;
 	background-image: url('https://bitcable.com/images/bg.png');
 	background-repeat: repeat-y;
-	font-family: 'Lato', sans-serif;
+	font-family: 'Ubuntu', sans-serif;
 }
 
 #error {
@@ -37,9 +37,9 @@ body {
 	margin-left: -7.5em;
 	margin-top: -6em;
 	height: 9.5em;
-	background-color: #0b0b0b;
+	background-color: #fff;
 	width: 15em;
-	box-shadow: 0 0 2em black;
+	box-shadow: 0 0 2em rgba(0,0,0,0.2);
 }
 
 #consoletest_container {
@@ -58,28 +58,37 @@ body {
 #container {
 	margin: 4em auto;
 	width: 40em;
-	background-color: #0b0b0b;
+	background-color: #fff;
 	min-height: 30em;
-	color: #ccc;
-	box-shadow: 0 0 2em black;
+	color: #222;
+	box-shadow: 0 0 2em rgba(0,0,0,0.2);
 }
 
 #content {
-	padding: 1em;
+	padding: 0em 1em 1em 1em;
 }
 
 #content h1 {
-	font-size: 1.3em;
+	font-size: 1.2em;
 	line-height: 1.5em;
+	margin: 0;
+	color: #0075ed;
+}
+
+#content p {
+	font-size: 13px;
+}
+
+#content a {
 	color: #0075ed;
 }
 
 #loginBox input {
-	background-color: #111;
+	background-color: #fff;
 	
-	border: 1px solid #222;
-	color: #888;
-	text-shadow: 0 1px 1px #000;
+	border: 1px solid #eee;
+	color: #000;
+	text-shadow: 0 1px 1px #fff;
 	display: block;
 	margin: 0.7em auto;
 	width: 10em;
@@ -94,17 +103,16 @@ body {
 
 #topBar {
 	height: 49px;
-	background-image: url('/img/topbarbg.png');
+/*	background-image: url('/img/topbarbg.png'); */
 }
 
 #topBar h1.logo a {
 	font-family: "FunctionCapsMedium";
 	line-height: 49px;
-	color: white;
+	color: black;
 	text-decoration: none;
 	font-size: 1.5em;
-	margin-left: 0.25em;
-	text-shadow: 0 1px 1px black;
+	margin-left: 0.65em;
 
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
@@ -128,16 +136,26 @@ body {
 }
 
 #topMenu {
-	float: right
+	margin-left: 7em;
+}
+
+#topUserInfo {
+	display: inline;
+	float: right;
+}
+
+#topUserInfo .username {
+	font-size: 13px;
+	color: #ccc;
+	margin-right: 1em;
 }
 
 #topMenu a {
 	line-height: 43px;
-	text-shadow: 0 0 0.4em black;
-	color: white;
+	color: #111;
 	text-decoration: none;
 	margin-right: 3em;
-	font-size: 0.8em;
+	font-size: 13px;
 }
 
 .plans {
@@ -198,15 +216,15 @@ input:focus {
 }
 
 .textInput, .fieldContainer select {
-	background-color: #151515;
-	color: #eee;
+	background-color: #fafafa;
+	color: #222;
 	width: 20em;
 	display: block;
 	border: 1px solid #222;
 }
 
 .fieldContainer option {
-	background-color: #151515;
+	background-color: #fafafa;
 	border: none;
 	float: right;
 }
@@ -216,9 +234,8 @@ input:focus {
 	text-align: right;
 	font-size: 0.9em;
 	line-height: 1.4em;
-	color: #eee;
+	color: #222;
 	margin-right: 0.8em;
-	text-shadow: 0 1px 0 #000;
 }
 
 .fieldContainer input, .fieldContainer select {
@@ -234,8 +251,8 @@ input:focus {
 
 .submitButton:active {
 	color: white;
-	background-color: #222;
-	border: 1px solid #666;
+	background-color: #fafafa;
+	border: 1px solid #ccc;
 }
 
 label {
@@ -251,11 +268,10 @@ label {
 .invoiceTable {
 	width: 80%;
 	margin: 0.5em auto;
-	border: 1px solid #222;
+	border: 1px solid #ccc;
 }
 
 .invoiceTable tr {
-	background-color: #111;
 }
 
 .invoiceTable td {
@@ -273,8 +289,8 @@ label {
 }
 
 .invoiceTable .heading {
-	background-color: #050505;
-	border-bottom: 1px solid #222;
+	background-color: #fafafa;
+	border-bottom: 1px solid #ccc;
 }
 
 .vmBoxContainer {
@@ -283,15 +299,16 @@ label {
 
 .vmBox {
 	width: 27%;
-	border: #222 solid 1px;
-	background-color: #151515;
+	border: #ddd solid 1px;
+	background-color: #fafafa;
 	height: 5em;
 	padding: 0.5em;
 	margin: 0 0.5em 1em 0.5em;
-	box-shadow: 0 0 0.5em rgba(0,0,0,0.3) inset;
+	box-shadow: 0 0 0.5em rgba(0,0,0,0.05) inset;
 	cursor: pointer;
 	-webkit-transition: background-color 0.1s ease-in-out;
 	display: inline-block;
+	color: #555;
 }
 
 .online {
@@ -303,12 +320,12 @@ label {
 }
 
 .vmBox:hover {
-	background-color: #1d1d1d;
+	background-color: #f0f0f0;
 }
 
 .vmBox .hostname {
 	font-size: 0.9em;
-	text-shadow: 0 1px 2px black;
+	text-shadow: 0 1px 1px white;
 	text-transform: uppercase;
 	line-height: 1.5em;
 	font-weight: bold;
@@ -317,4 +334,28 @@ label {
 .vmBox .pub, .vmBox .priv, .vmBox .details {
 	font-size: 0.8em;
 	line-height: 1.5em;
+}
+
+#vmControls a {
+	text-decoration: none;
+	display: inline-block;
+	height: 25px;
+	width: 5em;
+	background-color: #fafafa;
+	border: 1px solid #ccc;
+	color: #888;
+	text-align: center;
+	border-radius: 8px;
+	background-image: url("http://i.imgur.com/4XnM7.png");
+	font-size: 0.8em;
+	line-height: 22px;
+	text-shadow: 0 1px 0.01px white;
+}
+
+#vmControls a+a {
+	margin-left: 0.8em;
+}
+
+#vmControls a:active {
+	background-position: bottom;
 }

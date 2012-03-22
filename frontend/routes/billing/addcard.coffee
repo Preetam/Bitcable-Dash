@@ -21,7 +21,7 @@ module.exports = (req,res) ->
 				address_country: req.session.userdoc.country
 		stripe.customers.create obj, (err, customer) ->
 			if(err)
-				res.render 'billing/addcard', {error: "Didn't work."}
+				res.render 'billing/addcard', {error: "Didn't work.", user: req.session.user}
 			else
 				db.get "USER-#{req.session.user}", (e,r,h) ->
 					r.stripeid = customer.id

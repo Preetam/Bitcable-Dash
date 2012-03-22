@@ -78,11 +78,15 @@ app.post '/manage/:kvmid/redeploy', require('./routes/manage/redeploy')
 
 app.get '/manage/:kvmid/status', require('./routes/manage/status')
 
+app.get '/manage/:kvmid/console', require('./routes/manage/console')
+
 app.get '/manage/:kvmid/shell', (req, res) ->
 	db.get "KVM-#{req.params.kvmid}", (e,r,h) ->
-		require('child_process').exec("shellinaboxd --css white-on-black.css -s /:root:nogroup:/:\"ssh #{req.params.kvmid}@#{r.node}\" --cgi", (err, stdout, stderr) ->
+		require('child_process').exec("shellinaboxd --css console.css -f ShellInABox.js:ShellInABox.js -s /:dashssh:nogroup:/:\"ssh -o StrictHostKeyChecking=no #{req.params.kvmid}@#{r.node}\" --cgi", (err, stdout, stderr) ->
+			port = (stdout.split("\n")[0].split(" ")[1])
 			res.writeHead(stdout)
 			res.end()
+	#		res.redirect("https://dash.bitcable.com:#{port}/")
 		)
 
 app.get '/billing/', require('./routes/billing')

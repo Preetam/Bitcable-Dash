@@ -8,6 +8,6 @@ module.exports = (req,res) ->
 			invoices[i] = val.value
 		if(req.session.userdoc.stripeid != null)
 			stripe.customers.retrieve req.session.userdoc.stripeid, (err, custobj) ->
-				res.render 'billing/index', {stripeid: custobj.active_card, invoices: invoices}
+				res.render 'billing/index', {stripeid: custobj.active_card, invoices: invoices, user: req.session.user}
 		else
-			res.render 'billing/index', {stripeid: null, invoices: invoices}
+			res.render 'billing/index', {stripeid: null, invoices: invoices, user: req.session.user}

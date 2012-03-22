@@ -17,7 +17,7 @@ stopKVM = (node, kvmid) ->
 
 module.exports = (req,res) ->
 	if req.method is "GET"
-		res.render 'manage/verifyaction'
+		res.render 'manage/verifyaction', {user: req.session.user}
 	else
 		db = require('../../db.js').db
 		db.get "KVM-#{req.params.kvmid}", (e,r,h) ->

@@ -29,7 +29,7 @@ setIPused = (type, vars, cb) ->
 		available.splice(available.indexOf(vars[1]), 1)
 		used.push(vars[1])
 		cb(vars[1], vars[2], vars[3])
-		db.insert r, r._id, (e2,r2,h2) ->
+#		db.insert r, r._id, (e2,r2,h2) ->
 
 ###
 type is either 'public' or 'private'
@@ -96,6 +96,9 @@ createKVMdoc = (opts, cb) ->
 					img: opts.img
 				cb(kvmDoc)
 				db.insert kvmDoc, (e,r,h) ->
+					db.get 'USER-'+opts.client, (e2,r2,h2) ->
+						r2.id_counter++
+						db.insert r2,r2._id,(e3,r3,h3) ->
 					
 
 module.exports =

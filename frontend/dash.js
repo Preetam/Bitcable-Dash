@@ -105,9 +105,13 @@
 
   app.get('/manage/:kvmid/status', require('./routes/manage/status'));
 
+  app.get('/manage/:kvmid/console', require('./routes/manage/console'));
+
   app.get('/manage/:kvmid/shell', function(req, res) {
     return db.get("KVM-" + req.params.kvmid, function(e, r, h) {
-      return require('child_process').exec("shellinaboxd --css white-on-black.css -s /:root:nogroup:/:\"ssh " + req.params.kvmid + "@" + r.node + "\" --cgi", function(err, stdout, stderr) {
+      return require('child_process').exec("shellinaboxd --css console.css -f ShellInABox.js:ShellInABox.js -s /:dashssh:nogroup:/:\"ssh -o StrictHostKeyChecking=no " + req.params.kvmid + "@" + r.node + "\" --cgi", function(err, stdout, stderr) {
+        var port;
+        port = (stdout.split("\n")[0].split(" ")[1]);
         res.writeHead(stdout);
         return res.end();
       });

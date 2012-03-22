@@ -9,6 +9,7 @@ div ->
 			p -> "xxxx-xxxx-xxxx-#{@stripeid.last4}"
 			p -> "Expires #{@stripeid.exp_month}/#{@stripeid.exp_year}"
 			a href: '/billing/removecard', "Remove card"
+	h1 -> "Invoices."
 	for invoice in @invoices
 		div ->
 			a href: "/billing/invoices/#{invoice.num}", ->
