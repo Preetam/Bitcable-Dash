@@ -9,6 +9,6 @@
       "nano": "1.3.x",
       "stripe": "1.1.x",
       "validator": "0.4.x",
-      "paypal-ipn": "1.0.x"
+      "paypal-ipn": "3.0.0"
   }
 }
